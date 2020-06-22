@@ -1,0 +1,19 @@
+<%- include("partials/header.ejs") %>
+<div class="container text-center">
+    <h3>Kết toán từ ngày: <span style="color: green;"><%=startDate%></span> đến <span
+            style="color: darkgreen;"><%=endDate%></span></h3>
+    Tổng tiền: <%=totalAllUser%>k VND
+    <br>
+    <ul style="list-style: none;">
+        <% totalPerUser.forEach((user)=>{ %>
+        <li><%=user._id%> - <%=user.total%>k VND</li>
+        <% }) %>
+    </ul>
+    <ul style="list-style: none;">
+        <% debt.forEach((user)=>{ %>
+        <li><%=user.userName%> nợ <%=maxMoneySpentUser%> <%=user.debtAmount%>k VND</li>
+        <% }) %>
+    </ul>
+
+</div>
+<%- include("partials/footer.ejs") %>

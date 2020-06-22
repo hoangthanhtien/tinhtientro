@@ -1,0 +1,67 @@
+<%- include("partials/header.ejs") %>
+<div class="container">
+    <div class="form-container">
+        <form action="/" method="POST">
+            <label for="buyerName">Người mua:</label>
+            <br>
+            <select name="buyerName" id="buyerName" class="d-block w-100">
+                <option value="Tiến">Tiến đẳng cấp</option>
+                <option value="Huy">Tèo</option>
+                <option value="Tùng">Ngan</option>
+            </select>
+            <label for="items">Loại:</label>
+            <br>
+            <select name="items" id="items" class="d-block w-100">
+                <option value="Thực phẩm">Thực phẩm</option>
+                <option value="Nước">Nước</option>
+                <option value="Đồ dùng">Đồ dùng</option>
+                <option value="Gia vị, chất tẩy rửa">Gia vị, chất tẩy rửa</option>
+                <option value="Chi phí ăn chơi đập phá">Chi phí ăn chơi đập phá</option>
+                <option value="Khác">Khác</option>
+            </select>
+            <label for="description">Ghi chú:</label>
+            <small style="font-size: 10px; font-style: italic;">*Thích thì nhập mà không thích thì nhập*</small>
+            <input class="d-block w-100" type="text" id="description" name="description">
+            <label for="moneySpent">Giá:</label>
+            <br>
+            <input class="d-block w-100" type="text" id="moneySpent" name="moneySpent" required placeholder="VND">
+            <button class="btn btn-success mt-2" type="submit" id="submit-button">Ô kê</button>
+        </form>
+    </div>
+    <div class="container d-block text-center">
+        <h3>Tổng chi từng người</h3>
+        <ul class="text-center" style="list-style: none;">
+            <% totalPerUser.forEach((user)=>{ %>
+            <li><%=user._id%> - <%=user.total%>k VND</li>
+            <% }) %>
+        </ul>
+        <a href="/total" class="btn btn-success">Kết toán</a>
+
+    </div>
+    <table class="table-striped mx-auto">
+        <thead>
+            <tr>
+                <th class="text-center" scope="col">Người mua</th>
+                <th class="text-center" scope="col">Loại</th>
+                <th class="text-center" scope="col">Ghi chú</th>
+                <th class="text-center" scope="col">Giá <br> (Nghìn VND)</th>
+                <th class="text-center" scope="col">Thời gian</th>
+                <th class="text-center" scope="col">Xóa</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% bill.forEach((bill)=>{ %>
+            <tr>
+                <td><%=bill.buyerName%> </td>
+                <td><%=bill.items%> </td>
+                <td><%=bill.description%> </td>
+                <td><%=bill.moneySpent%>k VND </td>
+                <td><%=bill.date%></td>
+                <td class="text-center"><form method="POST" action="/bills/<%=bill.id%>/?_method=DELETE"><button class="btn btn-danger" type="submit">X</button></form></td>
+            </tr>
+            <%  }) %>
+        </tbody>
+    </table>
+</div>
+
+<%- include("partials/footer.ejs") %>

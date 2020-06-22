@@ -1,0 +1,27 @@
+<%- include("partials/header.ejs") %>
+<div>
+    <h2 class="text-center">Kết toán</h2>
+    <div class="d-flex" style="justify-content: center;">
+        <form action="/total" method="POST">
+            <label for="startDate">Ngày bắt đầu:</label>
+            <br>
+            <input type="date" id="startDate" name="startDate">
+            <br>
+            <label for="endDate">Ngày kết thúc:</label>
+            <br>
+            <input type="date" id="endDate" name="endDate">
+            <br>
+            <button class="btn btn-success mt-2 mx-auto" type="submit">Kết toán</button>
+        </form>
+    </div>
+
+    <hr>
+    <h3 class="text-center">Tổng chi từng người</h3>
+    <ul class="text-center pr-5" style="list-style: none;">
+        <% totalPerUser.forEach((user)=>{ %>
+        <li><%=user._id%> - <%=user.total%>k VND</li>
+        <% }) %>
+    </ul>
+
+</div>
+<%- include("partials/footer.ejs") %>
