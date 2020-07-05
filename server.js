@@ -1,5 +1,5 @@
 // require dotenv
-require('dotenv').config();
+require("dotenv").config();
 
 const express = require("express");
 const app = express();
@@ -55,7 +55,16 @@ app.post("/", async (req, res) => {
     throw error;
   }
 });
-
+// author route
+app.get('/author',(req,res)=>{
+  res.render('author');
+})
+// thongke routes
+app.get("/thongke", totalPerUserMiddleware, totalPerItemTypeMiddleware, (req, res, next) => {
+  totalPerUser = res.totalPerUser;
+  totalPerItemType = res.totalPerItemType;
+  res.render("thongke",{totalPerUser: totalPerUser, totalPerItemType: totalPerItemType});
+});
 // total routes
 app.get("/total", totalPerUserMiddleware, (req, res, next) => {
   totalPerUser = res.totalPerUser;
@@ -120,11 +129,11 @@ app.post("/total", async (req, res) => {
 });
 app.delete("/bills/:id", async (req, res) => {
   let bill;
-  try{
-    bill = await GeneralBill.findById(req.params.id)
+  try {
+    bill = await GeneralBill.findById(req.params.id);
     await bill.remove();
-    res.redirect('/')
-  }catch(err){
+    res.redirect("/");
+  } catch (err) {
     throw err;
   }
 });
@@ -136,6 +145,15 @@ async function totalPerUserMiddleware(req, res, next) {
     { $group: { _id: "$buyerName", total: { $sum: "$moneySpent" } } },
   ]);
   res.totalPerUser = totalPerUser;
+  next();
+}
+// Tính tổng tiền của từng loại đồ
+async function totalPerItemTypeMiddleware(req, res, next) {
+  const totalPerItemType= await GeneralBill.aggregate([
+    { $match: {} },
+    { $group: { _id: "$items", total: { $sum: "$moneySpent" } } },
+  ]);
+  res.totalPerItemType= totalPerItemType;
   next();
 }
 

@@ -1,0 +1,109 @@
+<%- include("partials/header.ejs") %>
+<div class="container">
+    <div class="chart1-container d-flex flex-wrap">
+        <ul>
+            <%for(i=0;i<totalPerUser.length;i++){%>
+            <li><%=totalPerUser[i]._id%> - <span id="<%=totalPerUser[i]._id%>"><%=totalPerUser[i].total%></span>k VND
+            </li>
+            <%}%>
+    </ul>
+
+        <!--Div that will hold the pie chart-->
+        <div id="chart1_div"></div>
+    </div>
+    <hr>
+    <div class="chart2-container d-flex flex-wrap">
+        <ul>
+            <%for(i=0;i<totalPerItemType.length;i++){%>
+            <li><%=totalPerItemType[i]._id%> - <span id="<%=totalPerItemType[i]._id%>"><%=totalPerItemType[i].total%></span>k
+                VND</li>
+            <%}%>
+        </ul>
+        <!-- Div that will hold the pie chart -->
+        <div id="chart2_div"></div>
+    </div> 
+
+</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', { 'packages': ['corechart'] });
+
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawChart1);
+    google.charts.setOnLoadCallback(drawChart2);
+
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    // CHART 1
+    function drawChart1() {
+
+        // get data of all users
+        var user1Name = document.getElementById('Tiến').getAttribute("id");
+        var user1Total = parseInt(document.getElementById('Tiến').textContent);
+        var user2Name = document.getElementById('Huy').getAttribute("id");
+        var user2Total = parseInt(document.getElementById('Huy').textContent);
+        var user3Name = document.getElementById('Tùng').getAttribute("id");
+        var user3Total = parseInt(document.getElementById('Tùng').textContent);
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Person');
+        data.addColumn('number', 'Percentage');
+        data.addRows([
+            [user1Name, user1Total],
+            [user2Name, user2Total],
+            [user3Name, user3Total]
+        ]);
+
+        // Set chart options
+        var options = {
+            'title': 'Số tiền mỗi người chi',
+            'width': 350,
+            'height': 300
+        };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart1_div'));
+        chart.draw(data, options);
+    }
+    // CHART2
+    function drawChart2() {
+        // Get data of total each item type
+        var item1Name = document.getElementById('Thực phẩm').getAttribute('id');
+        var item1Total = parseInt(document.getElementById('Thực phẩm').textContent);
+        var item2Name = document.getElementById('Nước').getAttribute('id');
+        var item2Total = parseInt(document.getElementById('Nước').textContent);
+        var item3Name = document.getElementById('Chi phí ăn chơi đập phá').getAttribute('id');
+        var item3Total = parseInt(document.getElementById('Chi phí ăn chơi đập phá').textContent);
+        var item4Name = document.getElementById('Gia vị, chất tẩy rửa').getAttribute('id');
+        var item4Total = parseInt(document.getElementById('Gia vị, chất tẩy rửa').textContent);
+        var item5Name = document.getElementById('Khác').getAttribute('id');
+        var item5Total = parseInt(document.getElementById('Khác').textContent);
+
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Item');
+        data.addColumn('number', 'Percentage');
+        data.addRows([
+            [item1Name, item1Total],
+            [item2Name, item2Total],
+            [item3Name, item3Total],
+            [item4Name, item4Total],
+            [item5Name, item5Total]
+        ]);
+
+        // Set chart options
+        var options = {
+            'title': 'Số tiền chi ra cho:',
+            'width': 350,
+            'height': 300
+        };
+
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById('chart2_div'));
+        chart.draw(data, options);
+
+    }
+</script>
+<%- include("partials/footer.ejs") %>

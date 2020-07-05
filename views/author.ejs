@@ -1,0 +1,31 @@
+<%- include("partials/header.ejs") %>
+<div class="container" class="d-flex justify-content-center">
+    <h4>Tác giả: Hoàng Thành Tiến</h3>
+    <div class="d-inline-flex">
+        <img style="width: auto; height: 100px; border-radius: 20%;"
+            src="https://scontent.fhan3-3.fna.fbcdn.net/v/t1.0-9/90240067_1257966854594323_2892378887210139648_n.jpg?_nc_cat=101&_nc_sid=13bebb&_nc_ohc=UhDxxi0ce6MAX8SEHhh&_nc_ht=scontent.fhan3-3.fna&oh=904f017e82294517edc38dc4ab32c4a7&oe=5F267EBE"
+            alt="">
+        <div class="d-flex flex-column ml-2">
+            <a href="https://www.facebook.com/tienhoang0604"><i class="fa fa-facebook-square fa-2x"
+                    aria-hidden="true"></i></a>
+            <a href="https://www.linkedin.com/in/th%C3%A0nh-ti%E1%BA%BFn-ho%C3%A0ng-0b0250176/"><i
+                    class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a>
+            <a id="email-button" href="https://gmail.com"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <hr>
+    <h5>Công nghệ sử dụng:</h5>
+    <ul>
+        <li>Bootstrap 4/ Jquery/ Font awesome</li>
+        <li>Node JS with ExpressJS</li>
+        <li>Mongodb with Mongoose</li>
+        <li>Template engine: EJS</li>
+    </ul>
+</div>
+<script>
+    var emailButton = document.getElementById('email-button');
+    emailButton.addEventListener('click', function(){
+        alert('My email: hoangthanhtien0604@gmail.com');
+    })
+</script>
+<%- include("partials/footer.ejs") %>
